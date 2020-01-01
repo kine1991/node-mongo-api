@@ -3,12 +3,12 @@ const articleController = require('../controllers/articleController');
 
 const router = express.Router();
 
-router.param('id', articleController.checkID);
+// router.param('id', articleController.checkID);
 
 router
   .route('/')
   .get(articleController.getAllArticles)
-  .post(articleController.checkBody, articleController.createArticle);
+  .post(articleController.createArticle);
 
 router
   .route('/:id')

@@ -7,6 +7,7 @@ const app = express();
 const carRouter = require('./routes/carRoutes');
 const userRouter = require('./routes/userRoutes');
 const articleRouter = require('./routes/articleRoutes');
+const bookRouter = require('./routes/bookRoutes');
 
 app.use(morgan('dev'));
 
@@ -31,20 +32,13 @@ app.use((req, res, next) => {
 // 3) ROUTES
 app.use('/api/v1/cars', carRouter);
 app.use('/api/v1/articles', articleRouter);
+app.use('/api/v1/books', bookRouter);
 app.use('/api/v1/users', userRouter);
 
-const x = 2;
-// eslint-disable-next-line
-console.log(x); 
+// const x = 2;
+// // eslint-disable-next-line
+// console.log(x);
 
-console.log('222'); //eslint-disable-line
-// let xx = 2;
-// xx++;
+// console.log('222'); //eslint-disable-line
 
 module.exports = app;
-
-// app.get('/api/v1/articles', getAllArticles);
-// app.post('/api/v1/articles', createArticle);
-// app.get('/api/v1/articles/:id', getArticle);
-// app.patch('/api/v1/articles/:id', updateArticle)
-// app.delete('/api/v1/articles/:id', deleteArticle)
