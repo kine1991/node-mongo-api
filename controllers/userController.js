@@ -59,7 +59,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-
 exports.updateArticle = (req, res) => {
   res.status(500).json({
     status: 'error',
