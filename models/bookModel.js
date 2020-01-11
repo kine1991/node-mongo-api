@@ -32,7 +32,8 @@ const bookSchema = new Schema(
       default: false
     },
     publisher: {
-      type: String
+      type: mongoose.Schema.ObjectId,
+      ref: 'User'
     },
     price: {
       type: Number
@@ -87,6 +88,19 @@ bookSchema.virtual('priceInRubles').get(function() {
   return this.price * 60;
 });
 
+// bookSchema.virtual('reviews', {
+//   ref: 'Review',
+//   foreignField: 'book',
+//   localField: '_id'
+// });
+
+// Virtual populate
+bookSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'book',
+  localField: '_id'
+});
+
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 bookSchema.pre('save', function(next) {
   this.slug = slugify(`${this.name} ${this.author}`, { lower: true });
@@ -103,6 +117,14 @@ bookSchema.pre(/^find/, function(next) {
   this.find({ private: { $ne: true } });
 
   this.start = Date.now();
+  next();
+});
+
+bookSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'publisher',
+    select: '-__v -passwordChangedAt'
+  });
   next();
 });
 

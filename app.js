@@ -13,6 +13,7 @@ const carRouter = require('./routes/carRoutes');
 const userRouter = require('./routes/userRoutes');
 const articleRouter = require('./routes/articleRoutes');
 const bookRouter = require('./routes/bookRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/cars', carRouter);
 app.use('/api/v1/articles', articleRouter);
 app.use('/api/v1/books', bookRouter);
+app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/users', userRouter);
 
 app.all('*', (req, res, next) => {

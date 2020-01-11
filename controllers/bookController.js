@@ -29,7 +29,7 @@ exports.getAllBooks = catchAsync(async (req, res) => {
 });
 
 exports.getBook = catchAsync(async (req, res, next) => {
-  const book = await Book.findById(req.params.id);
+  const book = await Book.findById(req.params.id).populate('reviews');
 
   if (!book) {
     return next(new AppError('No book found with that id', 404));
@@ -62,7 +62,7 @@ exports.updateBook = catchAsync(async (req, res, next) => {
 });
 
 exports.createBook = catchAsync(async (req, res) => {
-  const newBook = await Book.create(req.body);
+  const newBook = await Book.create({ ...req.body, publisher: req.user.id });
 
   res.status(201).json({
     status: 'success',

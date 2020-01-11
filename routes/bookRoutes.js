@@ -18,7 +18,7 @@ router
 router
   .route('/')
   .get(authController.protect, bookController.getAllBooks)
-  .post(bookController.createBook);
+  .post(authController.protect, bookController.createBook);
 
 router
   .route('/:id')
