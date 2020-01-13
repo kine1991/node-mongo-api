@@ -88,12 +88,6 @@ bookSchema.virtual('priceInRubles').get(function() {
   return this.price * 60;
 });
 
-// bookSchema.virtual('reviews', {
-//   ref: 'Review',
-//   foreignField: 'book',
-//   localField: '_id'
-// });
-
 // Virtual populate
 bookSchema.virtual('reviews', {
   ref: 'Review',

@@ -1,6 +1,7 @@
 const express = require('express');
 const bookController = require('../controllers/bookController');
 const authController = require('../controllers/authController');
+const reviewController = require('../controllers/reviewController');
 
 const router = express.Router();
 
@@ -28,6 +29,15 @@ router
     authController.protect,
     authController.restrictTo('admin', 'moderator'),
     bookController.deleteBook
+  );
+
+router
+  .route('/:bookId/reviews')
+  .get(reviewController.getAllReviewCurrentBook)
+  .post(
+    authController.protect,
+    authController.restrictTo('user'),
+    reviewController.createReview
   );
 
 module.exports = router;

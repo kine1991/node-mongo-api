@@ -13,8 +13,22 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAllReviewCurrentBook = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find({ book: req.params.bookId });
+
+  res.status(200).json({
+    status: 'success',
+    results: reviews.length,
+    data: {
+      reviews
+    }
+  });
+});
+
 exports.createReview = catchAsync(async (req, res, next) => {
-  req.body.user = req.user.id;
+  if (!req.body.book) req.body.book = req.params.bookId;
+  if (!req.body.user) req.body.user = req.user.id;
+
   const newReview = await Review.create(req.body);
 
   res.status(201).json({
